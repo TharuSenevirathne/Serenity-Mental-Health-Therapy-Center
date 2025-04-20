@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="therapistAnchorpane" prefHeight="465.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_courseworks.controller.TherapistController">
+   <children>
+      <ImageView fitHeight="275.0" fitWidth="246.0" layoutX="7.0" layoutY="122.0" opacity="0.7">
+         <image>
+            <Image url="@../assests/Screenshot 2025-04-18 121020.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="202.0" layoutY="39.0" text="THERAPIST MANAGEMENT">
+         <font>
+            <Font name="System Bold" size="23.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Line endX="148.79998779296875" layoutX="490.0" layoutY="56.0" startX="25.20001220703125" />
+      <Label layoutX="42.0" layoutY="147.0" text="Id : ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="37.0" layoutY="281.0" text="Specialization :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="194.0" text="Name :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="therapistIdLabel" layoutX="87.0" layoutY="147.0" text="Id ">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="nameTextfield" layoutX="37.0" layoutY="232.0" prefHeight="26.0" prefWidth="201.0" promptText="Enter therapist name here" />
+      <TableView fx:id="therapistTable" layoutX="264.0" layoutY="138.0" onMouseClicked="#therapistOnMouseClicked" prefHeight="240.0" prefWidth="410.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 10, 10);">
+         <columns>
+            <TableColumn fx:id="TherapistIdCol" prefWidth="88.0" style="-fx-background-color: white;" text="Id" />
+            <TableColumn fx:id="nameCol" prefWidth="160.79995727539062" style="-fx-background-color: white;" text="Name" />
+            <TableColumn fx:id="specializationCol" prefWidth="160.79989624023438" style="-fx-background-color: white;" text="Specialization" />
+         </columns>
+      </TableView>
+      <Button layoutX="573.0" layoutY="408.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: green;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="469.0" layoutY="408.0" mnemonicParsing="false" onAction="#updateOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: orange;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="364.0" layoutY="408.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: red;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button layoutX="259.0" layoutY="408.0" mnemonicParsing="false" onAction="#resetOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: blue;" text="Reset" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Line endX="148.79998779296875" layoutX="33.0" layoutY="56.0" startX="25.20001220703125" />
+      <ComboBox fx:id="specializationCombobox" layoutX="37.0" layoutY="314.0" prefHeight="26.0" prefWidth="202.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="MainAnchorpane" prefHeight="650.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_courseworks.controller.SignUpController">
+   <children>
+      <AnchorPane layoutX="150.0" layoutY="109.0" opacity="0.81" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: white; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 10, 10);">
+         <children>
+            <ImageView fitHeight="390.0" fitWidth="400.0" opacity="0.4">
+               <image>
+                  <Image url="@../assests/undraw_data-input_whqw.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="usernameLabel" layoutX="54.0" layoutY="122.0" text="Username :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameTextfield" layoutX="167.0" layoutY="118.0" prefHeight="26.0" prefWidth="174.0" promptText="Enter your username here" />
+            <Label fx:id="passwordLabel" layoutX="55.0" layoutY="159.0" text="Password :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="135.0" layoutY="30.0" text="Sign Up">
+               <font>
+                  <Font name="Century" size="37.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+            </Label>
+            <Button fx:id="signUPBUTTON" layoutX="56.0" layoutY="300.0" mnemonicParsing="false" onAction="#signUpONACTION" prefHeight="26.0" prefWidth="288.0" style="-fx-background-color: blue; -fx-border-color: white;" text="Sign Up" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelBUTTON" layoutX="56.0" layoutY="338.0" mnemonicParsing="false" onAction="#cancelONACTION" prefHeight="26.0" prefWidth="288.0" style="-fx-background-color: red; -fx-border-color: white;" text="Cancel" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Line endX="100.0" layoutX="204.0" layoutY="84.0" startX="-100.0" />
+            <ImageView fitHeight="14.0" fitWidth="16.0" layoutX="318.0" layoutY="125.0" opacity="0.28">
+               <image>
+                  <Image url="@../assests/Screenshot_2025-03-24_061027-removebg-preview.png" />
+               </image>
+            </ImageView>
+            <PasswordField fx:id="passwordTextfield" layoutX="167.0" layoutY="154.0" prefHeight="26.0" prefWidth="174.0" promptText="Enter your password here" />
+            <Label layoutX="125.0" layoutY="272.0" text="If you  have an account ?" textFill="#2600ff">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Label layoutX="244.0" layoutY="272.0" text="Log In" textFill="#2600ff">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+            <Line endX="-19.600006103515625" layoutX="135.0" layoutY="278.0" startX="-79.80001831054688" />
+            <Line endX="-19.600006103515625" layoutX="363.0" layoutY="279.0" startX="-79.80001831054688" />
+            <Button fx:id="loginBUTTON" layoutX="235.0" layoutY="266.0" mnemonicParsing="false" onAction="#loginBUTTONACTION" opacity="0.0" text="Button" />
+            <ComboBox fx:id="roleComboBox" layoutX="167.0" layoutY="227.0" prefHeight="26.0" prefWidth="174.0" />
+            <Label fx:id="roleLabel" layoutX="54.0" layoutY="232.0" text="Select a Role :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="confirmPasswordTextfield" layoutX="167.0" layoutY="191.0" prefHeight="26.0" prefWidth="174.0" promptText="Enter your password here" />
+            <Label fx:id="passwordLabel1" layoutX="54.0" layoutY="195.0" prefWidth="110.0" text="Confirm Password :">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="14.0" fitWidth="16.0" layoutX="319.0" layoutY="197.0" opacity="0.28">
+               <image>
+                  <Image url="@../assests/928417_access_lock_password_protect_safety_icon.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="14.0" fitWidth="16.0" layoutX="318.0" layoutY="160.0" opacity="0.28">
+               <image>
+                  <Image url="@../assests/928417_access_lock_password_protect_safety_icon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="66.0" fitWidth="77.0" layoutX="14.0" layoutY="14.0">
+         <image>
+            <Image url="@../assests/Screenshot_2025-03-26_024453-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="224.0" layoutY="563.0" opacity="0.57" text="© 2025 Seranity Mental Health Therapy Center . " />
+      <Label layoutX="302.0" layoutY="586.0" opacity="0.57" text=" All rights reserved." />
+      <Label layoutX="64.0" layoutY="52.0" text="SERANITY">
+         <font>
+            <Font name="Calibri Bold" size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
