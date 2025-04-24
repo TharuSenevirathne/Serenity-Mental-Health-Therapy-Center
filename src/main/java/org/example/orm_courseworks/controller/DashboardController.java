@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class AdminDashboardController {
+public class DashboardController {
 
         @FXML
         private AnchorPane MainAnchorpane;
@@ -36,7 +36,7 @@ public class AdminDashboardController {
 
         @FXML
         void homeOnAction(ActionEvent event) throws IOException {
-            AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Admin-Dashboard.fxml"));
+            AnchorPane load = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
             sideAnchorpane.getChildren().clear();
             sideAnchorpane.getChildren().add(load);
         }
@@ -89,5 +89,11 @@ public class AdminDashboardController {
             sideAnchorpane.getChildren().clear();
             sideAnchorpane.getChildren().add(load);
         }
+
+
+    @FXML
+    void userOnAction(ActionEvent event) {
+
+    }
 
     }

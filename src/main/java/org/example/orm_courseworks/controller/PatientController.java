@@ -111,16 +111,8 @@ public class PatientController implements Initializable {
 
     private void loadPatientTable() {
         List<PatientDTO> patientDTOList = patientBO.getAll();
-        for (PatientDTO patientDTO : patientDTOList) {
-            System.out.println("Id : "+patientDTO.getPatientId());
-            System.out.println("Name : "+patientDTO.getPatientName());
-            System.out.println("PhoneNo : "+patientDTO.getPhone());
-            System.out.println("Gender : "+patientDTO.getGender());
-            System.out.println("BirthDate : "+patientDTO.getBirthDate());
-            System.out.println("-----------------------------------------");
-        }
 
-        ObservableList<PatientDTO> patientDTOObservableList = FXCollections.observableArrayList();
+        ObservableList<PatientDTO> patientDTOObservableList = FXCollections.observableArrayList(patientDTOList);
         patientTable.setItems(patientDTOObservableList);
     }
 
@@ -191,10 +183,8 @@ public class PatientController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Please enter a valid phone number");
             alert.show();
-            return;
         }
     }
-
 
     @FXML
     void patientOnMouseClicked(MouseEvent event) {

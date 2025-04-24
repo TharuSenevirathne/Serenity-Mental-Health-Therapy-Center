@@ -17,10 +17,10 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public boolean deleteByPK(String id) {
-        Transaction transaction = null;
+        Session session = factoryConfiguration.getSessionFactory();
 
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
+        try {
+            Transaction transaction = session.beginTransaction();
             Patient patient = session.get(Patient.class, id);
 
             if (patient != null) {
@@ -32,50 +32,58 @@ public class PatientDAOImpl implements PatientDAO {
             transaction.commit();
             return true;
         } catch (Exception e) {
-
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            System.out.println("Unable to delete Patient!");
             e.printStackTrace();
             return false;
+        }finally{
+            if(session != null){
+                session.close();
+            }
         }
     }
 
     @Override
     public boolean update(Patient patient) {
-        Transaction transaction = null;
+        Session session = factoryConfiguration.getSessionFactory();
 
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
-
+        try {
+            Transaction transaction = session.beginTransaction();
             session.merge (patient);
-
             transaction.commit();
             return true;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            System.out.println("Unable to update Patient!");
             e.printStackTrace();
             return false;
+        }finally {
+            if(session != null){
+                session.close();
+            }
         }
     }
 
     @Override
     public List<Patient> getAll() {
-        try (Session session = FactoryConfiguration.getInstance().getSessionFactory()) {
+        Session session = factoryConfiguration.getSessionFactory();
+
+        try {
             return session.createQuery("FROM Patient", Patient.class).list();
         } catch (Exception e) {
+            System.out.println("Unable to getAll Patients!");
             e.printStackTrace();
             return Collections.emptyList();
+        }finally {
+            if(session != null){
+                session.close();
+            }
         }
     }
 
     @Override
     public Optional<String> getLastPK() {
-        Session session = null;
+        Session session = factoryConfiguration.getSessionFactory();
+
         try {
-            session = factoryConfiguration.getSessionFactory();
             Long lastPk = session
                     .createQuery("SELECT p.id FROM Patient p ORDER BY p.id DESC", Long.class)
                     .setMaxResults(1)
@@ -85,6 +93,7 @@ public class PatientDAOImpl implements PatientDAO {
             System.out.println(newPk);
             return Optional.of(String.valueOf(newPk));
         } catch (Exception e) {
+            System.out.println("Unable to getLastPK!");
             e.printStackTrace();
             return Optional.empty();
         } finally {
@@ -96,24 +105,22 @@ public class PatientDAOImpl implements PatientDAO {
 
     @Override
     public boolean save(Patient patient) {
-        Transaction transaction = null;
+        Session session = factoryConfiguration.getSessionFactory();
 
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
+        try {
+            Transaction transaction = session.beginTransaction();
             session.persist(patient);
             transaction.commit();
             return true;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
+            System.out.println("Unable to save Patient!");
             e.printStackTrace();
             return false;
         }
     }
 
     @Override
-    public Optional<Patient> findByPK(String pk) {
+    public Optional<Patient> findByPK(String id) {
         return Optional.empty();
     }
 

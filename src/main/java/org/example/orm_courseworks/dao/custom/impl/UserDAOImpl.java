@@ -16,30 +16,29 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean save(User userEntity) {
-        Transaction transaction = null;
+        Session session = factoryConfiguration.getSessionFactory();
 
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
+        try {
+            Transaction transaction = session.beginTransaction();
             session.persist(userEntity);
             transaction.commit();
             return true;
         } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
             return false;
+        }finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
-    public boolean cheackUser(String username) {
-        Session session = null;
+    public boolean cheackUser(String userName) {
+        Session session = factoryConfiguration.getSessionFactory();
         try {
-            session = factoryConfiguration.getSessionFactory();
-
-            String userName = session.createQuery("SELECT u.userName FROM User u WHERE u.userName = :username", String.class)
-                    .setParameter("username", username)
+            String username = session.createQuery("SELECT u.username FROM User u WHERE u.username = :username", String.class)
+                    .setParameter("username", userName)
                     .uniqueResult();
 
             return username != null;
@@ -56,11 +55,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getSelectUser(String username) {
-        Session session = null;
+        Session session = factoryConfiguration.getSessionFactory();
         try {
-            session = factoryConfiguration.getSessionFactory();
-
-            User user = session.createQuery("FROM User u WHERE u.userName = :username", User.class)
+            User user = session.createQuery("FROM User u WHERE u.username = :username", User.class)
                     .setParameter("username", username)
                     .uniqueResult();
 
@@ -79,9 +76,8 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public Optional<String> getLastPK() {
-        Session session = null;
+        Session session = factoryConfiguration.getSessionFactory();
         try {
-            session = factoryConfiguration.getSessionFactory();
             Long lastPk = session
                     .createQuery("SELECT u.id FROM User u ORDER BY u.id DESC", Long.class)
                     .setMaxResults(1)

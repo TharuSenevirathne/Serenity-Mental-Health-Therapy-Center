@@ -50,7 +50,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="371.0" text="Birthdate :">
+      <Label layoutX="22.0" layoutY="371.0" text="Reg.Date :">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -68,26 +68,26 @@
           <TableColumn fx:id="nameCol" prefWidth="99.20001220703125" style="-fx-background-color: white;" text="Name" />
             <TableColumn fx:id="phoneNoCol" prefWidth="103.20001220703125" style="-fx-background-color: white;" text="Phone No" />
             <TableColumn fx:id="genderCol" prefWidth="73.5999755859375" style="-fx-background-color: white;" text="Gender" />
-            <TableColumn fx:id="birthdateCol" prefWidth="85.60002441406249" style="-fx-background-color: white;" text="Birthdate" />
+            <TableColumn fx:id="birthdateCol" prefWidth="85.60002441406249" style="-fx-background-color: white;" text="Reg.Date" />
         </columns>
       </TableView>
       <TextField fx:id="phoneNoTextfield" layoutX="21.0" layoutY="263.0" prefHeight="26.0" prefWidth="184.0" promptText="Enter contact no here" />
-      <Button layoutX="589.0" layoutY="399.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: green;" text="Add" textFill="WHITE">
+      <Button layoutX="584.0" layoutY="399.0" mnemonicParsing="false" onAction="#addOnAction" prefHeight="27.0" prefWidth="95.0" style="-fx-border-color: white; -fx-background-color: green;" text="Add" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="473.0" layoutY="399.0" mnemonicParsing="false" onAction="#updateOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: orange;" text="Update" textFill="WHITE">
+      <Button layoutX="469.0" layoutY="399.0" mnemonicParsing="false" onAction="#updateOnAction" prefHeight="27.0" prefWidth="95.0" style="-fx-border-color: white; -fx-background-color: orange;" text="Update" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="359.0" layoutY="399.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: red;" text="Delete" textFill="WHITE">
+      <Button layoutX="354.0" layoutY="399.0" mnemonicParsing="false" onAction="#deleteOnAction" prefHeight="27.0" prefWidth="95.0" style="-fx-border-color: white; -fx-background-color: red;" text="Delete" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button layoutX="242.0" layoutY="399.0" mnemonicParsing="false" onAction="#resetOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: blue;" text="Reset" textFill="WHITE">
+      <Button layoutX="241.0" layoutY="399.0" mnemonicParsing="false" onAction="#resetOnAction" prefHeight="27.0" prefWidth="95.0" style="-fx-border-color: white; -fx-background-color: blue;" text="Reset" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>

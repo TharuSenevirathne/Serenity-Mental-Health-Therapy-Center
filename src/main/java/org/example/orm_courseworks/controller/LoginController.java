@@ -82,7 +82,7 @@ public class LoginController {
             }else {
                 if (role.equals("Admin")) {
                     MainAnchorpane.getChildren().clear();
-                    MainAnchorpane.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Admin-Dashboard.fxml")));
+                    MainAnchorpane.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml")));
                 } else if (role.equals("Receptionist")) {
                     MainAnchorpane.getChildren().clear();
                     MainAnchorpane.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Recetionist-Dashboard.fxml")));

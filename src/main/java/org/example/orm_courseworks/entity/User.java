@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 
 public class User implements SuperEntity {
     @Id
     @Column(name = "user_id")
     private String userId;
-    private String userName;
+    private String username;
     private String password;
     private String userRole;
 

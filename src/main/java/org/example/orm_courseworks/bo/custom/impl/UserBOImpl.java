@@ -42,7 +42,7 @@ public class UserBOImpl implements UserBO {
     public static User toUser(UserDTO userDTO) {
         return new User(
                 userDTO.getUserId(),
-                userDTO.getUserName(),
+                userDTO.getUsername(),
                 userDTO.getPassword(),
                 userDTO.getUserRole()
         );
@@ -76,7 +76,7 @@ public class UserBOImpl implements UserBO {
     public static UserDTO toUserDTO(User user) {
         return new UserDTO(
                 user.getUserId(),
-                user.getUserName(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getUserRole()
         );

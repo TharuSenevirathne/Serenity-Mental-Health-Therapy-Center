@@ -74,7 +74,7 @@ public class SignUpController implements Initializable {
         String username = usernameTextfield.getText();
         String password = passwordTextfield.getText();
         String confirmPassword = confirmPasswordTextfield.getText();
-        String role = (String) roleComboBox.getValue();
+        String role = roleComboBox.getValue();
 
         String lastId = userBO.getLastK().orElse("U001");
 
@@ -86,27 +86,39 @@ public class SignUpController implements Initializable {
 
         if (username.isEmpty() || password.isEmpty() || role.isEmpty() || confirmPassword.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter all the fields correctly");
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.show();
             return;
         }
 
         if (password.length()<8){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Password must be at least 8 characters");
+            alert.setTitle("Password Error");
+            alert.setHeaderText(null);
+            alert.show();
             return;
         }
 
         if (!password.equals(confirmPassword)){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Passwords do not match");
+            alert.setTitle("Password Error");
+            alert.setHeaderText(null);
+            alert.show();
             return;
         }
 
         if (userBO.checkUser(username)){
             Alert alert = new Alert(Alert.AlertType.ERROR, "User already exists");
+            alert.setTitle("User already exists");
+            alert.setHeaderText(null);
+            alert.show();
             return;
         }
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUserId(lastId);
-        userDTO.setUserName(username);
+        userDTO.setUsername(username);
         userDTO.setPassword(password);
         userDTO.setUserRole(role);
 

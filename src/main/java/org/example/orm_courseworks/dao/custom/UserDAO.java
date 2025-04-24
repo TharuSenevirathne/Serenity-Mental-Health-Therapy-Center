@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDAO extends CrudDAO<User,String> {
-    boolean cheackUser(String username);
-    User getSelectUser(String username);
+    boolean cheackUser(String email);
+    User getSelectUser(String userName);
 }
