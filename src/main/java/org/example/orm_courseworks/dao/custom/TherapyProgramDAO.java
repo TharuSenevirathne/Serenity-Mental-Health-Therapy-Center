@@ -8,6 +8,5 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public interface TherapyProgramDAO extends CrudDAO<TherapyProgram,String> {
-    ArrayList<String> getProgramList();
+public interface TherapyProgramDAO extends CrudDAO<TherapyProgram> {
 }

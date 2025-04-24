@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserDAO extends CrudDAO<User,String> {
-    boolean cheackUser(String email);
-    User getSelectUser(String userName);
+public interface UserDAO extends CrudDAO<User> {
+
 }

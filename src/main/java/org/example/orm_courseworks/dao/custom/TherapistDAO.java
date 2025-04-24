@@ -7,6 +7,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface TherapistDAO extends CrudDAO<Therapist,String> {
+public interface TherapistDAO extends CrudDAO<Therapist> {
 
 }

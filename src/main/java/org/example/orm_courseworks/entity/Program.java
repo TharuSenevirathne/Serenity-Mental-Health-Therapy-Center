@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "program")
 
-public class program {
+public class Program {
     @Id
     private String programId;
     private String name;
