@@ -3,13 +3,18 @@ package org.example.orm_courseworks.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.orm_courseworks.bo.BOFactory;
+import org.example.orm_courseworks.bo.custom.UserBO;
 import org.example.orm_courseworks.bo.custom.impl.UserBOImpl;
+import org.example.orm_courseworks.dao.DAOFactory;
+import org.example.orm_courseworks.dao.custom.UserDAO;
 import org.example.orm_courseworks.dto.UserDTO;
 import org.example.orm_courseworks.util.PasswordUtil;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import java.io.IOException;
 
@@ -42,7 +47,16 @@ public class LoginController {
     @FXML
     private TextField usernameTextfield;
 
-    private final UserBOImpl userBO = (UserBOImpl) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+    private final UserBO userBO = (UserBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USER);
+    private final UserDAO userDAO = (UserDAO) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.USER);
+
+
+    static UserDTO userDTO ;
+    public Hyperlink registerLink;
+
+    public static UserDTO getUserDto() {
+        return userDTO;
+    }
 
     @FXML
     void cancelOnAction(ActionEvent event) {
@@ -56,45 +70,34 @@ public class LoginController {
         String password = passwordTextfield.getText();
 
         if (username.isEmpty() || password.isEmpty()) {
-            System.out.println("Username or Password is empty!!");
-            return;
-        }
+            new Alert(Alert.AlertType.ERROR, "Please fill in both username and password.").show();
+        } else {
+            UserDTO userDto1 = userBO.loginUser(username);
+            if (userDto1 == null) {
+                new Alert(Alert.AlertType.INFORMATION, "User not found.").show();
+            } else {
+                if (BCrypt.checkpw(password, userDto1.getPassword())) {
+                    System.out.println(userDto1.getRole());
+                    userDto1 = userDto1;
+                    System.out.println(userDto1.getRole()+"originl");
 
-        boolean result = userBO.checkUser(username);
-
-        if (result) {
-            UserDTO userDTO = userBO.checkPassword(username);
-            String role = userDTO.getUserRole();
-            String hashedDTO = userDTO.getPassword();
-
-            System.out.println("In Controller " + hashedDTO);
-            System.out.println(role);
-
-
-            boolean isPasswordValid = PasswordUtil.verifyPassword(password, hashedDTO);
-
-            if (!isPasswordValid) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText(null);
-                alert.setContentText("Invalid Password!");
-                alert.show();
-            }else {
-                if (role.equals("Admin")) {
-                    MainAnchorpane.getChildren().clear();
-                    MainAnchorpane.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml")));
-                } else if (role.equals("Receptionist")) {
-                    MainAnchorpane.getChildren().clear();
-                    MainAnchorpane.getChildren().add(FXMLLoader.load(getClass().getResource("/view/Recetionist-Dashboard.fxml")));
+                    getdashboard();
+                } else {
+                    new Alert(Alert.AlertType.ERROR, "Invalid password").show();
                 }
             }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Invalid Username or Password!");
-            alert.showAndWait();
         }
+    }
+
+    private void getdashboard() throws IOException {
+        AnchorPane rootNode = FXMLLoader.load(getClass().getResource("/view/Dashboard.fxml"));
+
+        Scene scene = new Scene(rootNode);
+
+        Stage stage = (Stage) registerLink.getScene().getWindow();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setTitle("Registration Page");
     }
 
     @FXML

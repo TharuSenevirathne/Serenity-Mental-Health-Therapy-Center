@@ -15,4 +15,10 @@ public interface UserBO extends SuperBO {
     boolean deleteTherapist(String id) throws SQLException, ClassNotFoundException;
     boolean updateTherapist(TherapistDTO therapistDTO, String programId) throws SQLException, ClassNotFoundException;
     List<String> getAvailableTherapistIds();
+
+    UserDTO getData(String username);
+
+    boolean updateUser(UserDTO userDTO);
+
+    UserDTO loginUser(String username);
 }

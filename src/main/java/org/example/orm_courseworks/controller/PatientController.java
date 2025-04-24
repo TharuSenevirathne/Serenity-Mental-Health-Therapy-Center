@@ -7,13 +7,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import org.example.orm_courseworks.bo.BOFactory;
 import org.example.orm_courseworks.bo.custom.impl.PatientBOImpl;
 import org.example.orm_courseworks.dto.PatientDTO;
+import org.example.orm_courseworks.dto.UserDTO;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -58,42 +61,74 @@ public class PatientController implements Initializable {
 
     private final PatientBOImpl patientBO = (PatientBOImpl) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PATIENT);
     private String id;
+    static UserDTO userDTO;
+    public Button btnPatientHistory;
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        userDTO = LoginController.getUserDto();
+        getallPatient();
+        checkrole(userDTO);
+        clear();
+    }
+
+    private void checkrole(UserDTO userDTO) {
+         /*System.out.println(userDto.getRole());
+
+        if (userDto.getRole().equals("admin")){
+            btnAddPatient.setDisable(true);
+            btnDeletePatient.setDisable(true);
+            btnUpdatePatient.setDisable(true);
+        }*/
+    }
+
+    private void getallPatient() throws SQLException, ClassNotFoundException {
+        ObservableList<PatientDTO> patientDtos = patientBO.getAllPatients();
+        patientTable.setItems(patientDtos);
+    }
+
+
+    public void clear() {
+        nameTextfield.clear();
+        phoneNoTextfield.clear();
+    }
 
     @FXML
-    void addOnAction(ActionEvent event) {
+    void addOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String id = this.id;
         String name = nameTextfield.getText();
-        String phoneNo = phoneNoTextfield.getText();
+        String contact = phoneNoTextfield.getText();
         String regex = "^07\\d{8}$";
         String gender = genderCombobox.getValue();
-        String birthdate = birthdateDatepicker.getValue().toString();
+        String regDate = birthdateDatepicker.getValue().toString();
 
-        if (name.isEmpty() || birthdate.isEmpty() || gender.isEmpty() || phoneNo.isEmpty()) {
+        if(name.isEmpty() || contact.isEmpty() || gender.isEmpty() || regDate.isEmpty()){
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("Please enter all the details");
+            alert.setContentText("Please fill all the fields");
+            alert.show();
+
+            return;
+        }
+
+        if (contact.matches(regex)) {
+            System.out.println("Valid contact number: " + contact);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid contact number");
             alert.show();
             return;
         }
 
-        if (phoneNo.matches(regex)) {
-            System.out.println("This Phone number is valid : " + phoneNo);
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("Please enter a valid phone number");
-            alert.show();
-            return;
-        }
 
         PatientDTO patientDTO = new PatientDTO();
         patientDTO.setPatientId(id);
         patientDTO.setPatientName(name);
-        patientDTO.setPhone(phoneNo);
+        patientDTO.setPhone(contact);
         patientDTO.setGender(gender);
-        patientDTO.setBirthDate(birthdate);
+        patientDTO.setRegDate(regDate);
 
         boolean isSaved = patientBO.save(patientDTO);
 
@@ -102,9 +137,10 @@ public class PatientController implements Initializable {
             phoneNoTextfield.clear();
             genderCombobox.setValue(null);
             birthdateDatepicker.setValue(null);
-            this.id = String.valueOf(patientBO.getLastPK().orElse("Error"));
+            patientIdLabel.setText(patientBO.getLastPK().orElse("Error"));
+
             loadPatientTable();
-        }else {
+        } else {
             System.out.println("Failed to save patient");
         }
     }
@@ -168,7 +204,7 @@ public class PatientController implements Initializable {
             patientDTO.setPatientName(name);
             patientDTO.setPhone(phoneNo);
             patientDTO.setGender(gender);
-            patientDTO.setBirthDate(birthdate);
+            patientDTO.setRegDate(birthdate);
 
             boolean isUpdated = patientBO.update(patientDTO);
 
@@ -197,8 +233,8 @@ public class PatientController implements Initializable {
             genderCombobox.setValue(selectedPatient.getGender());
             birthdateDatepicker.setDisable(true);
 
-            if (selectedPatient.getBirthDate() != null && !selectedPatient.getBirthDate().isEmpty()) {
-                birthdateDatepicker.setValue(LocalDate.parse(String.valueOf(LocalDate.parse(selectedPatient.getBirthDate()))));
+            if (selectedPatient.getRegDate() != null && !selectedPatient.getRegDate().isEmpty()) {
+                birthdateDatepicker.setValue(LocalDate.parse(String.valueOf(LocalDate.parse(selectedPatient.getRegDate()))));
             }else {
                 birthdateDatepicker.setValue(null);
             }
@@ -216,7 +252,7 @@ public class PatientController implements Initializable {
     nameCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPatientName()));
     phoneNoCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPhone()));
     genderCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getGender()));
-    birthdateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBirthDate()));
+    birthdateCol.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getRegDate()));
 
     loadPatientTable();
     }

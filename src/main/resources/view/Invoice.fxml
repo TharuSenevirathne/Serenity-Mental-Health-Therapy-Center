@@ -13,7 +13,7 @@
             <Font name="Bell MT Bold" size="25.0" />
          </font>
       </Label>
-      <Label layoutX="379.0" layoutY="98.0" text="Official Invoice">
+      <Label layoutX="376.0" layoutY="85.0" text="Official Invoice">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -154,6 +154,11 @@
       <Label layoutX="284.0" layoutY="687.0" opacity="0.57" text="For any inquiries please contact us : +94238748290">
          <font>
             <Font size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="invoiceNoLabel" layoutX="393.0" layoutY="111.0" text="Invoice No ">
+         <font>
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
    </children>

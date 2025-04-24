@@ -14,4 +14,6 @@ public interface PatientBO extends SuperBO {
     boolean addPatient(PatientDTO patientDTO , UserDTO userDTO)throws SQLException, ClassNotFoundException;
     boolean updatePatient(PatientDTO patientDTO)throws SQLException, ClassNotFoundException;
     boolean deletePatient(String id)throws SQLException, ClassNotFoundException;
+
+    PatientDTO searchPatient(String patientId);
 }
