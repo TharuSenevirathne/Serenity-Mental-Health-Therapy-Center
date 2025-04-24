@@ -15,12 +15,16 @@ import java.util.List;
 
 public class TherapyProgram implements SuperEntity{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "therapyProgram_id")
     private String therapyProgramId;
     private String therapyProgramName;
     private String therapyProgramDuration;
     private double therapyProgramCost;
 
-    @OneToMany(mappedBy = "therapyProgram")
-    private List<TherapySession> therapySession;
+    @ManyToOne
+    private Therapist therapist;
+
+    @ManyToOne
+    private TherapyProgram therapyProgram;
 }

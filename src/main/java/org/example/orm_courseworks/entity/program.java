@@ -11,16 +11,18 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "patient")
-public class Patient implements SuperEntity{
-    @Id
-    @Column(name = "patient_id")
-    private String patientId;
-    private String patientName;
-    private String phone;
-    private String gender;
-    private String regDate;
+@Table(name = "program")
 
-    @OneToMany(mappedBy = "patient")
+public class program {
+    @Id
+    private String programId;
+    private String name;
+    private String duration;
+    private String fee;
+
+    @OneToMany(mappedBy = "program")
+    private List<TherapyProgram> therapyProgram;
+
+    @OneToMany(mappedBy = "programs")
     private List<TherapySession> therapySession;
 }

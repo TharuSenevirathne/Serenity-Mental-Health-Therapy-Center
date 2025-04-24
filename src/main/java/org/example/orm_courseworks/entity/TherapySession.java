@@ -13,11 +13,10 @@ import lombok.NoArgsConstructor;
 
 public class TherapySession implements SuperEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "therapySession_id")
     private String therapySessionId;
     private String date;
-    private String time;
-    private String status;
 
     @ManyToOne
     @JoinColumn(name = "therapist_id")

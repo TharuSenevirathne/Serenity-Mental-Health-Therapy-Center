@@ -13,16 +13,15 @@ import lombok.NoArgsConstructor;
 
 public class Payment implements SuperEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id")
     private String paymentId;
     private double amount;
+    private double fullamount;
+    private double remainingamount;
     private String date;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "session_id")
     private TherapySession therapySession;
 }

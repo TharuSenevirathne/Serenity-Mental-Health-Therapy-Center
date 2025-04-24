@@ -35,17 +35,17 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="39.0" layoutY="267.0" text="Session-Id :">
+      <Label layoutX="40.0" layoutY="190.0" text="Session-Id :">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="38.0" layoutY="203.0" text="Patient :">
+      <Label layoutX="38.0" layoutY="140.0" text="Patient :">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="39.0" layoutY="140.0" text="Amount :">
+      <Label layoutX="43.0" layoutY="288.0" text="Amount :">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -55,8 +55,8 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="AmountTextfield" layoutX="37.0" layoutY="168.0" prefHeight="26.0" prefWidth="152.0" promptText="Enter amount here" />
-      <ComboBox fx:id="patientCombobox" layoutX="37.0" layoutY="233.0" prefHeight="26.0" prefWidth="152.0" />
+      <TextField fx:id="AmountTextfield" layoutX="37.0" layoutY="308.0" prefHeight="26.0" prefWidth="152.0" promptText="Enter amount here" />
+      <ComboBox fx:id="patientCombobox" layoutX="37.0" layoutY="160.0" prefHeight="26.0" prefWidth="152.0" />
       <TableView fx:id="paymentTable" layoutX="204.0" layoutY="150.0" onMouseClicked="#paymentOnMouseCliked" prefHeight="234.0" prefWidth="472.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 10, 10);">
          <columns>
             <TableColumn fx:id="paymentCol" prefWidth="64.0" style="-fx-background-color: white;" text="Id" />
@@ -89,17 +89,29 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="37.0" layoutY="329.0" text="Program ;">
+      <Label layoutX="41.0" layoutY="241.0" text="Program ;">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="programCombobox" layoutX="40.0" layoutY="357.0" prefHeight="26.0" prefWidth="152.0" />
-      <ComboBox fx:id="sessionIdCombobox" layoutX="37.0" layoutY="295.0" prefHeight="26.0" prefWidth="152.0" />
+      <ComboBox fx:id="programCombobox" layoutX="37.0" layoutY="261.0" prefHeight="26.0" prefWidth="152.0" />
+      <ComboBox fx:id="sessionIdCombobox" layoutX="37.0" layoutY="211.0" prefHeight="26.0" prefWidth="152.0" />
       <Button layoutX="204.0" layoutY="410.0" mnemonicParsing="false" onAction="#InvoiceOnAction" prefHeight="26.0" prefWidth="90.0" style="-fx-border-color: white; -fx-background-color: grey;" text="Invoice" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="payingamountTextfield" layoutX="43.0" layoutY="389.0" text="Paying Amount(LKR) :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="341.0" text="Remaining(LKR) :">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="remainingTextfield" layoutX="38.0" layoutY="363.0" />
+      <TextField layoutX="42.0" layoutY="411.0" />
    </children>
 </AnchorPane>

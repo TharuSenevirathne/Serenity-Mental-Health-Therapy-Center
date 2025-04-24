@@ -11,6 +11,4 @@ import lombok.*;
 public class TherapySessionDTO {
     private String therapySessionId;
     private String date;
-    private String time;
-    private String status;
 }

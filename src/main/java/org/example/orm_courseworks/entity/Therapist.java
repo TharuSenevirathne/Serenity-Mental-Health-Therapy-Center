@@ -21,5 +21,8 @@ public class Therapist implements SuperEntity {
     private String specialization;
 
     @OneToMany(mappedBy = "therapist")
+    private List<TherapyProgram>therapyProgram;
+
+    @OneToMany(mappedBy = "therapist")
     private List<TherapySession> therapySession;
 }

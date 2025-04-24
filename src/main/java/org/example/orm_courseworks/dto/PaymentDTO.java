@@ -11,5 +11,7 @@ import lombok.*;
 public class PaymentDTO {
     private String paymentId;
     private double amount;
+    private double fullamount;
+    private double remainingamount;
     private String date;
 }

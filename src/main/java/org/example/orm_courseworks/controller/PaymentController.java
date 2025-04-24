@@ -12,6 +12,12 @@ public class PaymentController {
     private TextField AmountTextfield;
 
     @FXML
+    private Label payingamountTextfield;
+
+    @FXML
+    private TextField remainingTextfield;
+
+    @FXML
     private TableColumn<String, ?> amountCol;
 
     @FXML
