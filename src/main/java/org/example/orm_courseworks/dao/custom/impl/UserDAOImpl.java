@@ -1,124 +1,131 @@
 package org.example.orm_courseworks.dao.custom.impl;
 
+
+import jakarta.persistence.NoResultException;
+import javafx.scene.control.Alert;
 import org.example.orm_courseworks.config.FactoryConfiguration;
 import org.example.orm_courseworks.dao.custom.UserDAO;
 import org.example.orm_courseworks.entity.User;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public class UserDAOImpl implements UserDAO {
-
-    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+    FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public boolean save(User userEntity) {
-        Session session = factoryConfiguration.getSessionFactory();
-
+    public boolean registerUser(User user) {
+        boolean isRegistered;
+        Session session = factoryConfiguration.getSession();
         try {
-            Transaction transaction = session.beginTransaction();
-            session.persist(userEntity);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }finally {
-            if (session != null) {
-                session.close();
-            }
+            session.beginTransaction();
+            session.save(user);
+            session.getTransaction().commit();
+            session.close();
+            isRegistered = true;
+        } catch (HibernateException e) {
+            throw new RuntimeException(e);
         }
+        return isRegistered;
     }
 
     @Override
-    public boolean cheackUser(String userName) {
-        Session session = factoryConfiguration.getSessionFactory();
+    public User loginUser(String username) {
+        Session session = factoryConfiguration.getSession();
+        User user = null;
         try {
-            String username = session.createQuery("SELECT u.username FROM User u WHERE u.username = :username", String.class)
-                    .setParameter("username", userName)
-                    .uniqueResult();
-
-            return username != null;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
-    @Override
-    public User getSelectUser(String username) {
-        Session session = factoryConfiguration.getSessionFactory();
-        try {
-            User user = session.createQuery("FROM User u WHERE u.username = :username", User.class)
-                    .setParameter("username", username)
-                    .uniqueResult();
-
-            System.out.println(user.getPassword());
-            System.out.println(user);
+            String hql = "FROM User WHERE username = :username";
+            user = (User) session.createQuery(hql).setParameter("username", username).uniqueResult();
+            session.close();
             return user;
+        } catch (NoResultException e) {
+            // Handle the case where no result is found
+            System.out.println("No user found with username: " + username);
         } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+            e.printStackTrace(); // Log any other exceptions
         } finally {
             if (session != null) {
-                session.close();
+                session.close(); // Ensure the session is closed
             }
         }
+        return user;
     }
 
     @Override
-    public Optional<String> getLastPK() {
-        Session session = factoryConfiguration.getSessionFactory();
+    public boolean ifHaveAdmin() {
+        boolean ishaveadmins = false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        String hql = "from User where role = 'admin'";
         try {
-            Long lastPk = session
-                    .createQuery("SELECT u.id FROM User u ORDER BY u.id DESC", Long.class)
-                    .setMaxResults(1)
-                    .uniqueResult();
-
-            Long newPk = (lastPk != null) ? lastPk + 1 : 1;
-            return Optional.of(String.valueOf(newPk));
-
+            ishaveadmins = session.createQuery(hql).list().size() > 0;
         } catch (Exception e) {
             e.printStackTrace();
-            return Optional.empty();
+        }
+
+        return ishaveadmins;
+    }
+
+    @Override
+    public User search(String id) {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        User user = null;
+
+        try {
+            String hql = "FROM User WHERE id = :id";
+            user = session.createQuery(hql, User.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            // Handle the case where no result is found
+            System.out.println("No user found with ID: " + id);
+            new Alert(Alert.AlertType.ERROR, "User not found").show();
+        } catch (Exception e) {
+            e.printStackTrace(); // Log any other exceptions
         } finally {
             if (session != null) {
-                session.close();
+                session.close(); // Ensure the session is closed
             }
         }
+        return user; // Will return null if no user is found
     }
 
     @Override
-    public boolean update(User user) {
-        return false;
+    public List<User> getAll() throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        String hql = "FROM User";
+        return session.createQuery(hql, User.class ).list();
+
     }
 
     @Override
-    public boolean deleteByPK(String id) throws Exception {
-        return false;
+    public boolean save(User entity) throws SQLException, ClassNotFoundException {
+        Session session  = factoryConfiguration.getSession();
+        session.beginTransaction();
+        session.save(entity);
+        session.getTransaction().commit();
+        return true;
+    }
+
+
+    @Override
+    public boolean update(User entity) throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        session.beginTransaction();
+        session.update(entity);
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
 
     @Override
-    public List<User> getAll() {
-        return List.of();
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        session.beginTransaction();
+        session.delete(session.get(User.class, id));
+        session.getTransaction().commit();
+        session.close();
+        return true;
     }
-
-    @Override
-    public Optional<User> findByPK(String id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
 }

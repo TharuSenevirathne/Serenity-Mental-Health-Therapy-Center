@@ -1,85 +1,77 @@
 package org.example.orm_courseworks.bo.custom.impl;
 
+
+
 import org.example.orm_courseworks.bo.custom.UserBO;
 import org.example.orm_courseworks.dao.DAOFactory;
-import org.example.orm_courseworks.dao.custom.impl.UserDAOImpl;
-import org.example.orm_courseworks.dto.UserDTO;
+import org.example.orm_courseworks.dao.custom.UserDAO;
+import org.example.orm_courseworks.dto.UserDto;
 import org.example.orm_courseworks.entity.User;
-import org.example.orm_courseworks.util.PasswordUtil;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 
 public class UserBOImpl implements UserBO {
-
-    UserDAOImpl userDAO = (UserDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.USER);
+    UserDAO userDAO = (UserDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.USER);
 
     @Override
-    public boolean checkUser(String username) {
-        return userDAO.cheackUser(username);
+    public boolean registerUser(UserDto userdto) {
+        return userDAO.registerUser(new User(userdto.getUsername(),userdto.getEmail(),userdto.getPassword(),userdto.getRole()));
     }
 
     @Override
-    public UserDTO checkPassword(String username) {
-        User user = userDAO.getSelectUser(username);
-        return toUserDTO(user);    }
-
-    @Override
-    public Optional<String> getLastK() {
-        return userDAO.getLastPK();
+    public UserDto loginUser(String username) {
+        User user = userDAO.loginUser(username);
+        if (user == null){
+            return null;
+        }else {
+            return new UserDto(user.getId(),user.getUsername(),user.getEmail(),user.getPassword(),user.getRole());
+        }
     }
 
     @Override
-    public boolean save(UserDTO userDTO) {
-        String password = PasswordUtil.hashPassword(userDTO.getPassword());
-        userDTO.setPassword(password);
-        User userEntity = toUser(userDTO);
-        return userDAO.save(userEntity);
-    }
-
-    public static User toUser(UserDTO userDTO) {
-        return new User(
-                userDTO.getUserId(),
-                userDTO.getUsername(),
-                userDTO.getPassword(),
-                userDTO.getUserRole()
-        );
+    public List<UserDto> getAllUsers() throws SQLException, ClassNotFoundException {
+        List<User> users = userDAO.getAll();
+        List<UserDto> userDtos = new ArrayList<>();
+        for (User user : users) {
+            userDtos.add(new UserDto(user.getId(),user.getUsername(),user.getEmail(),user.getRole()));
+        }
+        return userDtos;
     }
 
     @Override
-    public boolean update(UserDTO userDTO) {
-        return false;
+    public boolean updateUser(UserDto userDto) throws SQLException, ClassNotFoundException {
+        return userDAO.update(new User(userDto.getId(),userDto.getUsername(),userDto.getEmail(),userDto.getPassword(),userDto.getRole()));
     }
 
     @Override
-    public boolean deleteByPK(String id) throws Exception {
-        return false;
+    public boolean addUser(UserDto userDto) throws SQLException, ClassNotFoundException {
+        return userDAO.save(new User(userDto.getUsername(),userDto.getEmail(),userDto.getPassword(),userDto.getRole()));
     }
 
     @Override
-    public List<UserDTO> getAll() {
-        return List.of();
+    public boolean deleteUser(String id) throws SQLException, ClassNotFoundException {
+        return userDAO.delete(id);
     }
 
     @Override
-    public Optional<UserDTO> findByPK(String id) {
-        return Optional.empty();
+    public UserDto searchUser(String id) {
+        User user = userDAO.search(id);
+        if (user == null){
+            return null;
+        }else {
+            return new UserDto(user.getId(),user.getUsername(),user.getEmail(),user.getRole());
+        }
     }
 
     @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    public static UserDTO toUserDTO(User user) {
-        return new UserDTO(
-                user.getUserId(),
-                user.getUsername(),
-                user.getPassword(),
-                user.getUserRole()
-        );
+    public UserDto getData(String username) {
+       User user = userDAO.loginUser(username);
+       if (user == null){
+           return null;
+       }else {
+           return new UserDto(user.getId(),user.getUsername(),user.getEmail(),user.getRole());
+       }
     }
 }
-

@@ -2,26 +2,32 @@ package org.example.orm_courseworks.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "payment")
 
-public class Payment implements SuperEntity {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "payment_id")
-    private String paymentId;
-    private double amount;
-    private double fullamount;
-    private double remainingamount;
-    private String date;
+    private long paymentId;
+    private String paymentDetails;
+    private double fullAmount;
+    private double remainingAmount;
 
     @OneToOne
-    @JoinColumn(name = "session_id")
-    private TherapySession therapySession;
+    @JoinColumn(name = "sessionId")
+    private Therapy_Session therapy_session;
+
+    public Payment(String paymentDetails, double fullAmount, double remainingAmount, Therapy_Session therapy_session) {
+        this.paymentDetails = paymentDetails;
+        this.fullAmount = fullAmount;
+        this.remainingAmount = remainingAmount;
+        this.therapy_session = therapy_session;
+    }
 }

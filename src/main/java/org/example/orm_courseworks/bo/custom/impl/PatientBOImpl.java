@@ -1,93 +1,55 @@
 package org.example.orm_courseworks.bo.custom.impl;
 
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.orm_courseworks.bo.custom.PatientBO;
 import org.example.orm_courseworks.dao.DAOFactory;
-import org.example.orm_courseworks.dao.custom.impl.PatientDAOImpl;
-import org.example.orm_courseworks.dto.PatientDTO;
+import org.example.orm_courseworks.dao.custom.PatientDAO;
+import org.example.orm_courseworks.dto.PatientDto;
+import org.example.orm_courseworks.dto.UserDto;
 import org.example.orm_courseworks.entity.Patient;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class PatientBOImpl implements PatientBO {
-
-    private final PatientDAOImpl patientDAO = (PatientDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.PATIENT);
-
+    PatientDAO patientDAO = (PatientDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PATIENT);
     @Override
-    public boolean save(PatientDTO patientDTO) {
-        Patient patient = toEntity(patientDTO);
-        return patientDAO.save(patient);
-    }
-
-    @Override
-    public Optional<String> getLastPK() {
-        return patientDAO.getLastPK();
-    }
-
-    @Override
-    public List<PatientDTO> getAll() {
-        List<PatientDTO> users = new ArrayList<>();
-        List<Patient> all = patientDAO.getAll();
-        for (Patient patient : all) {
-            users.add(new PatientDTO(
-                    patient.getPatientId(),
-                    patient.getPatientName(),
-                    patient.getPhone(),
-                    patient.getGender(),
-                    patient.getBirthDate()
-            ));
+    public ObservableList<PatientDto> getAllPatients() throws SQLException, ClassNotFoundException {
+        List<PatientDto> patientDtos = new ArrayList<>();
+        List<Patient> patients = patientDAO.getAll();
+        for (Patient patient : patients){
+            patientDtos.add(new PatientDto(patient.getId(),patient.getName(),patient.getEmail(),patient.getAddress(),patient.getTel(),patient.getRegisterDate()));
         }
-        return users;
+        return FXCollections.observableArrayList(patientDtos);
     }
 
     @Override
-    public boolean deleteByPK(String id) {
-        return patientDAO.deleteByPK(id);
+    public boolean addPatient(PatientDto patientDto, UserDto userDto) throws SQLException, ClassNotFoundException {
+        return patientDAO.save(new Patient(patientDto.getId(),patientDto.getName(),patientDto.getEmail(),patientDto.getAddress(),patientDto.getTel(),patientDto.getRegisterDate()));
     }
 
     @Override
-    public boolean update(PatientDTO patientDTO) {
-        Patient patient = toEntity(patientDTO);
-        return patientDAO.update(patient);
+    public boolean updatePatient(PatientDto patientDto) throws SQLException, ClassNotFoundException {
+        return patientDAO.update(new Patient(patientDto.getId(),patientDto.getName(),patientDto.getEmail(),patientDto.getAddress(),patientDto.getTel(),patientDto.getRegisterDate()));
     }
 
-    public static PatientDTO toDTO(Patient patient) {
-        if (patient == null) {
+    @Override
+    public boolean deletePatient(String id) throws SQLException, ClassNotFoundException {
+        return patientDAO.delete(id);
+    }
+
+    @Override
+    public PatientDto searchPatient(String id) {
+        Patient patient = patientDAO.search(id);
+
+        if (patient == null){
             return null;
+        }else {
+            return new PatientDto(patient.getId(),patient.getName(),patient.getEmail(),patient.getAddress(),patient.getTel(),patient.getRegisterDate());
         }
-        return new PatientDTO(
-                patient.getPatientId(),
-                patient.getPatientName(),
-                patient.getPhone(),
-                patient.getGender(),
-                patient.getBirthDate()
-        );
-    }
-
-    public static Patient toEntity(PatientDTO patientDTO) {
-        if (patientDTO == null) {
-            return null;
-        }
-        return new Patient(
-                patientDTO.getPatientId(),
-                patientDTO.getPatientName(),
-                patientDTO.getPhone(),
-                patientDTO.getGender(),
-                patientDTO.getBirthDate(),
-                null
-        );
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
-
-    @Override
-    public Optional<PatientDTO> findByPK(String id) {
-        return Optional.empty();
     }
 
 }

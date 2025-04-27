@@ -1,86 +1,109 @@
 package org.example.orm_courseworks.bo.custom.impl;
 
-import org.example.orm_courseworks.bo.custom.TherapistBO;
-import org.example.orm_courseworks.dao.DAOFactory;
-import org.example.orm_courseworks.dao.custom.impl.TherapistDAOImpl;
-import org.example.orm_courseworks.dto.TherapistDTO;
-import org.example.orm_courseworks.entity.Therapist;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import org.example.orm_courseworks.bo.custom.TherapistBO;
+import org.example.orm_courseworks.config.FactoryConfiguration;
+import org.example.orm_courseworks.dao.DAOFactory;
+import org.example.orm_courseworks.dao.custom.ProgramDAO;
+import org.example.orm_courseworks.dao.custom.TherapistDAO;
+import org.example.orm_courseworks.dto.TherapistDto;
+import org.example.orm_courseworks.entity.Program;
+import org.example.orm_courseworks.entity.Therapist;
+import org.example.orm_courseworks.entity.Therapist_Program;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.sql.SQLException;
 
 public class TherapistBOImpl implements TherapistBO {
-
-    TherapistDAOImpl therapistDAO = (TherapistDAOImpl) DAOFactory.getDAOFactory().getDAO(DAOFactory.DAOTypes.THERAPIST);
-
+    TherapistDAO therapistDAO = (TherapistDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.THERAPIST);
+    ProgramDAO programDAO = (ProgramDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.PROGRAM);
     @Override
-    public boolean save(TherapistDTO therapistDTO) {
-        Therapist therapist = toEntity(therapistDTO);
-        return therapistDAO.save(therapist);
-    }
-
-    @Override
-    public Optional<String> getLastPK() {
-        return therapistDAO.getLastPK();
-    }
-
-    @Override
-    public boolean deleteByPK(String id) {
-        return therapistDAO.deleteByPK(id);
-    }
-
-    @Override
-    public List<TherapistDTO> getAll() {
-        List<TherapistDTO> users = new ArrayList<>();
-        List<Therapist> all = therapistDAO.getAll();
-        for (Therapist therapist : all) {
-            users.add(new TherapistDTO(
-                    therapist.getTherapistId(),
-                    therapist.getTherapistName(),
-                    therapist.getSpecialization()
-            ));
+    public ObservableList<TherapistDto> getAllTherapists() throws SQLException, ClassNotFoundException {
+        List<TherapistDto> therapistDtos = new ArrayList<>();
+        List<Therapist> therapists = therapistDAO.getAll();
+        for (Therapist therapist : therapists) {
+            therapistDtos.add(new TherapistDto(therapist.getTherapistId(), therapist.getName(), therapist.getSpecialization(), therapist.getContactNo(), therapist.getStatus()));
         }
-        return users;
+        return FXCollections.observableArrayList(therapistDtos);
     }
 
     @Override
-    public boolean update(TherapistDTO therapistDTO) {
-        Therapist therapist = toEntity(therapistDTO);
-        return therapistDAO.update(therapist);
-    }
+    public void addTherapist(TherapistDto therapistDTO, String programId) throws SQLException, ClassNotFoundException {
+        //transaction
+        Therapist therapist = new Therapist(therapistDTO.getTherapistId(), therapistDTO.getName(), therapistDTO.getSpecialization(), therapistDTO.getContactNo(), therapistDTO.getStatus());
 
-    @Override
-    public Optional<TherapistDTO> findByPK(String id) {
-        return Optional.empty();
-    }
+        Session session = FactoryConfiguration.getInstance().getSession();
+        session.beginTransaction();
 
-    @Override
-    public boolean exist(String id) throws ClassNotFoundException ,SQLException{
-        return false;
-    }
-
-    public static TherapistDTO toDTO(Therapist therapist) {
-        if (therapist == null) {
-            return null;
+        try {
+            if (programId == null) {
+                therapistDAO.save(therapist);
+                session.getTransaction().commit();
+            } else {
+                Program program = programDAO.get(programId);
+                Therapist_Program therapist_program = new Therapist_Program(therapist, program);
+                Serializable id = therapistDAO.savetherapist(therapist, session);
+                if (id != null) {
+                    session.save(therapist_program);
+                    session.getTransaction().commit();
+                }
+            }
+        } catch (SQLException e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
         }
-        return new TherapistDTO(
-                therapist.getTherapistId(),
-                therapist.getTherapistName(),
-                therapist.getSpecialization()
-        );
     }
 
-    public static Therapist toEntity(TherapistDTO therapistDTO) {
-        if (therapistDTO == null) {
-            return null;
-        }
-        return new Therapist(
-                therapistDTO.getTherapistId(),
-                therapistDTO.getTherapistName(),
-                therapistDTO.getSpecialization(),
-                null
-        );
+
+    @Override
+    public boolean deleteTherapist(String id) throws SQLException, ClassNotFoundException {
+        return therapistDAO.delete(id);
     }
+
+
+    @Override
+    public boolean updateTherapist(TherapistDto therapistDTO, String programId) throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Therapist therapist = new Therapist(therapistDTO.getTherapistId(), therapistDTO.getName(), therapistDTO.getSpecialization(), therapistDTO.getContactNo(), therapistDTO.getStatus());
+
+            if (programId == null) {
+                therapistDAO.update(therapist);
+                session.getTransaction().commit();
+                therapistDTO.setStatus("Available");
+            } else {
+                Program program = programDAO.get(programId);
+                Therapist_Program therapist_program = new Therapist_Program(therapist, program);
+                System.out.println("therapist_program = " + therapist_program);
+                Serializable id = therapistDAO.updatetherapist(therapist, session);
+                if (id != null) {
+                    session.update(therapist_program);
+                    session.getTransaction().commit();
+                    therapistDTO.setStatus("Not Available");
+                }
+            }
+            therapistDAO.updateStatus(therapistDTO);
+            return true;
+        } catch (Exception e) {
+            transaction.rollback();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+    @Override
+    public List<String> getAvailableTherapistIds() {
+        return therapistDAO.getAvailableTherapists();
+    }
+
+
 }

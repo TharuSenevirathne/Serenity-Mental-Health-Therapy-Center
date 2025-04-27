@@ -1,17 +1,25 @@
 package org.example.orm_courseworks.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+@Getter
+@Setter
 
 public class PaymentDTO {
-    private String paymentId;
-    private double amount;
-    private double fullamount;
-    private double remainingamount;
-    private String date;
+    private long paymentId;
+    private String paymentDetails;
+    private double fullAmount;
+    private double remainingAmount;
+
+    public PaymentDTO(String paymentDetails, double fullAmount, double remainingAmount) {
+        this.paymentDetails = paymentDetails;
+        this.fullAmount = fullAmount;
+        this.remainingAmount = remainingAmount;
+    }
+
 }

@@ -1,124 +1,97 @@
 package org.example.orm_courseworks.dao.custom.impl;
 
+
 import org.example.orm_courseworks.config.FactoryConfiguration;
 import org.example.orm_courseworks.dao.custom.TherapistDAO;
+import org.example.orm_courseworks.dto.TherapistDto;
 import org.example.orm_courseworks.entity.Therapist;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
+import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 public class TherapistDAOImpl implements TherapistDAO {
-
-    private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
-
+    FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
     @Override
-    public boolean save(Therapist therapist) {
-        Transaction transaction = null;
-
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
-            session.persist(therapist);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        }
+    public List<Therapist> getAll() throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        String hql = "FROM Therapist";
+        return session.createQuery(hql, Therapist.class).list();
     }
 
     @Override
-    public Optional<String> getLastPK() {
-        Session session = null;
+    public boolean save(Therapist entity) throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        session.beginTransaction();
+
+        session.save(entity);
+        session.getTransaction().commit();
+        return true;
+    }
+
+
+
+    @Override
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        session.beginTransaction();
+
+        session.delete(session.get(Therapist.class,id));
+        session.getTransaction().commit();
+        return true;
+    }
+
+    @Override
+    public Serializable savetherapist(Therapist therapist, Session session) {
         try {
-            session = factoryConfiguration.getSessionFactory();
-            Long lastPk = session
-                    .createQuery("SELECT p.id FROM Therapist p ORDER BY p.id DESC", Long.class)
-                    .setMaxResults(1)
-                    .uniqueResult();
-
-            Long newPk = (lastPk != null) ? lastPk + 1 : 1;
-
-            System.out.println(newPk);
-
-            return Optional.of(String.valueOf(newPk));
-
+          return (Serializable) session.save(therapist);
         } catch (Exception e) {
-            e.printStackTrace();
-            return Optional.empty();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<String> getAvailableTherapists() {
+        Session session = factoryConfiguration.getSession();
+        String hql = "FROM Therapist WHERE status = 'Available'";
+        return session.createQuery(hql, Therapist.class).list().stream().map(Therapist::getTherapistId).toList();
+    }
+    @Override
+    public boolean update(Therapist entity) throws SQLException, ClassNotFoundException {
+        Session session = factoryConfiguration.getSession();
+        session.beginTransaction();
+
+        session.update(entity);
+        session.getTransaction().commit();
+        return true;
+
+    }
+
+    @Override
+    public void updateStatus(TherapistDto therapistDTO){
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            Query query = session.createQuery("UPDATE Therapist SET status = :status WHERE therapistId = :therapistId");
+            query.setParameter("status", therapistDTO.getStatus());
+            query.setParameter("therapistId", therapistDTO.getTherapistId());
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+            throw e;
         } finally {
-            if (session != null) {
-                session.close();
-            }
+            session.close();
         }
     }
 
     @Override
-    public boolean deleteByPK(String id) {
-        Transaction transaction = null;
-
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
-
-            Therapist therapist = session.get(Therapist.class, id);
-            if (therapist != null) {
-                session.remove(therapist);
-            } else {
-                return false;
-            }
-
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        }
+    public Serializable updatetherapist(Therapist therapist, Session session) {
+        session.update(therapist);
+        return therapist.getTherapistId();
     }
 
-    @Override
-    public List<Therapist> getAll() {
-        try (Session session = FactoryConfiguration.getInstance().getSessionFactory()) {
-            return session.createQuery("FROM Therapist ", Therapist.class).list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
-    }
-
-    @Override
-    public boolean update(Therapist therapist) {
-        Transaction transaction = null;
-
-        try (Session session = factoryConfiguration.getSessionFactory()) {
-            transaction = session.beginTransaction();
-            session.merge (therapist);
-            transaction.commit();
-            return true;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
-    public Optional<Therapist> findByPK(String id) {
-        return Optional.empty();
-    }
-
-    @Override
-    public boolean exist(String id) throws SQLException, ClassNotFoundException {
-        return false;
-    }
 }

@@ -1,28 +1,48 @@
 package org.example.orm_courseworks.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "therapist")
 
-public class Therapist implements SuperEntity {
+public class Therapist {
     @Id
-    @Column(name = "therapist_id")
     private String therapistId;
-    private String therapistName;
+    private String name;
     private String specialization;
+    private String contactNo;
+    private String status;
 
     @OneToMany(mappedBy = "therapist")
-    private List<TherapyProgram>therapyProgram;
+    private List<Therapist_Program> therapist_programs;
 
+    public Therapist(String therapistId, String name, String specialization, String contactNo, String status) {
+        this.therapistId = therapistId;
+        this.name = name;
+        this.specialization = specialization;
+        this.contactNo = contactNo;
+        this.status = status;
+    }
     @OneToMany(mappedBy = "therapist")
-    private List<TherapySession> therapySession;
+    private List<Therapy_Session> therapy_sessions;
+
+    public Therapist(String therapistId, String name, String specialization, String contactNo, String status, List<Therapist_Program> therapist_programs) {
+        this.therapistId = therapistId;
+        this.name = name;
+        this.specialization = specialization;
+        this.contactNo = contactNo;
+        this.status = status;
+        this.therapist_programs = therapist_programs;
+    }
 }

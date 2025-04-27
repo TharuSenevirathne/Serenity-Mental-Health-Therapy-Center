@@ -1,18 +1,21 @@
 package org.example.orm_courseworks.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity
-@Table(name = "program")
-
 public class Program {
     @Id
     private String programId;
@@ -20,9 +23,25 @@ public class Program {
     private String duration;
     private String fee;
 
-    @OneToMany(mappedBy = "program")
-    private List<TherapyProgram> therapyProgram;
+    @OneToMany(mappedBy = "program", cascade = CascadeType.ALL)
+    private List<Therapist_Program> therapist_programs;
 
-    @OneToMany(mappedBy = "programs")
-    private List<TherapySession> therapySession;
+    public Program(String programId, String name, String duration, String fee) {
+        this.programId = programId;
+        this.name = name;
+        this.duration = duration;
+        this.fee = fee;
+    }
+
+    @OneToMany(mappedBy = "programs", cascade = CascadeType.ALL)
+    private List<Therapy_Session> therapy_sessions;
+
+
+    public Program(String programId, String name, String duration, String fee, List<Therapist_Program> therapist_programs) {
+        this.programId = programId;
+        this.name = name;
+        this.duration = duration;
+        this.fee = fee;
+        this.therapist_programs = therapist_programs;
+    }
 }

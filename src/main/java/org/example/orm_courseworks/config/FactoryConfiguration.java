@@ -7,25 +7,19 @@ import org.hibernate.cfg.Configuration;
 
 public class FactoryConfiguration {
     private static FactoryConfiguration factoryConfiguration;
+
     private SessionFactory sessionFactory;
 
     private FactoryConfiguration() {
-        Configuration configuration = new Configuration().configure().addAnnotatedClass(User.class).
-                addAnnotatedClass(Patient.class).addAnnotatedClass(Program.class).
-                addAnnotatedClass(Therapist.class).addAnnotatedClass(TherapyProgram.class).
-                addAnnotatedClass(TherapySession.class).addAnnotatedClass(Payment.class);
+        Configuration configuration = new Configuration().configure().addAnnotatedClass(User.class).addAnnotatedClass(Patient.class).addAnnotatedClass(Program.class).addAnnotatedClass(Therapist.class).addAnnotatedClass(Therapist_Program.class).addAnnotatedClass(Therapy_Session.class).addAnnotatedClass(Payment.class);
         sessionFactory = configuration.buildSessionFactory();
     }
 
     public static FactoryConfiguration getInstance() {
-        if (factoryConfiguration == null) {
-            factoryConfiguration = new FactoryConfiguration();
-        }
-        return factoryConfiguration;
+        return (factoryConfiguration == null) ? factoryConfiguration = new FactoryConfiguration() : factoryConfiguration;
     }
 
-    public Session getSessionFactory() {
-        return  sessionFactory.openSession();
+    public Session getSession() {
+        return sessionFactory.openSession();
     }
-
 }

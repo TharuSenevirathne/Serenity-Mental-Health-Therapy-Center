@@ -1,26 +1,40 @@
 package org.example.orm_courseworks.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@Entity
-@Table(name = "patient")
-public class Patient implements SuperEntity{
-    @Id
-    @Column(name = "patient_id")
-    private String patientId;
-    private String patientName;
-    private String phone;
-    private String gender;
-    private String regDate;
+@Getter
+@Setter
 
-    @OneToMany(mappedBy = "patient")
-    private List<TherapySession> therapySession;
+@Entity
+public class Patient {
+    @Id
+    private String id;
+    private String name;
+    private String email;
+    private String address;
+    private String tel;
+    private String registerDate;
+
+    @OneToMany(mappedBy = "patients", cascade = CascadeType.ALL)
+    private List<Therapy_Session> therapy_sessions;
+
+    public Patient(String id, String name, String email, String address, String tel, String registerDate) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.tel = tel;
+        this.registerDate = registerDate;
+    }
 }

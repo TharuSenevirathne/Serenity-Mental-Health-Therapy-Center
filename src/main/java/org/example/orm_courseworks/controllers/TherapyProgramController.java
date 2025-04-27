@@ -1,0 +1,140 @@
+package org.example.orm_courseworks.controllers;
+
+
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import org.example.orm_courseworks.bo.BOFactory;
+import org.example.orm_courseworks.bo.custom.ProgramBO;
+import org.example.orm_courseworks.dto.ProgramDto;
+
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class TherapyProgramController {
+    public Button backBtn;
+    public TextField txtProgramID;
+    public TextField txtProgramName;
+    public TextField txtProgramDuration;
+    public TextField txtProgramFee;
+    public Button btnAddProgram;
+    public Button btnUpdateProgram;
+    public Button btnDeleteProgram;
+    public TableView<ProgramDto> tblPrograms;
+    public TableColumn<?,?> colProgramID;
+    public TableColumn<?,?> colProgramName;
+    public TableColumn<?,?> colDuration;
+    public TableColumn<?,?> colFee;
+
+    ProgramBO programBO = (ProgramBO) BOFactory.getInstance().getBO(BOFactory.BOType.PROGRAM);
+
+    public void initialize() throws SQLException, ClassNotFoundException {
+        setCellValueFactory();
+        getAllProgram();
+        clear();
+    }
+    public void clear() {
+        txtProgramID.clear();
+        txtProgramName.clear();
+        txtProgramDuration.clear();
+        txtProgramFee.clear();
+    }
+    private void setCellValueFactory() {
+        colProgramID.setCellValueFactory(new PropertyValueFactory<>("programId"));
+        colProgramName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+        colFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+    }
+
+    public void getAllProgram() throws SQLException, ClassNotFoundException {
+        ObservableList<ProgramDto> programDtos = programBO.getAllPrograms();
+        tblPrograms.setItems(programDtos);
+    }
+    public void addProgram(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String programId = txtProgramID.getText();
+        String name = txtProgramName.getText();
+        String duration = txtProgramDuration.getText();
+        String fee = txtProgramFee.getText();
+
+        ProgramDto programDto = new ProgramDto(programId,name,duration,fee);
+        boolean isSaved = programBO.addProgram(programDto);
+            if (isSaved){
+                new Alert(Alert.AlertType.CONFIRMATION,"Program Saved");
+                getAllProgram();
+                clear();
+            }else {
+                new Alert(Alert.AlertType.ERROR,"Program Not Saved");
+            }
+    }
+
+    public void updateProgram(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String programId = txtProgramID.getText();
+        String name = txtProgramName.getText();
+        String duration = txtProgramDuration.getText();
+        String fee = txtProgramFee.getText();
+
+        ProgramDto programDto = new ProgramDto(programId,name,duration,fee);
+        boolean isUpdate = programBO.updateProgram(programDto);
+        if (isUpdate){
+            new Alert(Alert.AlertType.CONFIRMATION,"Update successful");
+            getAllProgram();
+            clear();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Update failed");
+        }
+    }
+
+    public void deleteProgram(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String programId = txtProgramID.getText();
+
+        boolean isDelete = programBO.deleteProgram(programId);
+        if (isDelete){
+            new Alert(Alert.AlertType.CONFIRMATION,"Delete successful");
+            getAllProgram();
+            clear();
+        }else {
+            new Alert(Alert.AlertType.ERROR,"Delete failed");
+        }
+    }
+
+    public void backOnAction(ActionEvent actionEvent) throws IOException {
+        AnchorPane rootNode = FXMLLoader.load(getClass().getResource("/view/dashboard.fxml"));
+
+        Scene scene = new Scene(rootNode);
+
+        Stage stage = (Stage) txtProgramID.getScene().getWindow();
+        stage.setScene(scene);
+        stage.centerOnScreen();
+        stage.setTitle("Login Page");
+    }
+
+    public void tableOnClick(MouseEvent mouseEvent) {
+        ProgramDto programDto = tblPrograms.getSelectionModel().getSelectedItem();
+
+        if (programDto != null){
+            txtProgramID.setText(programDto.getProgramId());
+            txtProgramName.setText(programDto.getName());
+            txtProgramDuration.setText(programDto.getDuration());
+            txtProgramFee.setText(programDto.getFee());
+        }
+    }
+    public void programIdOnKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void programNameOnKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void programDurationOnKeyReleased(KeyEvent keyEvent) {
+    }
+
+    public void programFeeOnKeyReleased(KeyEvent keyEvent) {
+    }
+
+}

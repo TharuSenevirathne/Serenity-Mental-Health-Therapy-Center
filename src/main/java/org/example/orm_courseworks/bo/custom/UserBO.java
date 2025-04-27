@@ -1,24 +1,27 @@
 package org.example.orm_courseworks.bo.custom;
 
-import javafx.collections.ObservableList;
+
+
 import org.example.orm_courseworks.bo.SuperBO;
-import org.example.orm_courseworks.dto.TherapistDTO;
-import org.example.orm_courseworks.dto.UserDTO;
+import org.example.orm_courseworks.dto.UserDto;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserBO extends SuperBO {
-    ObservableList<TherapistDTO> getAllTherapists() throws SQLException, ClassNotFoundException;
-    void addTherapist(TherapistDTO therapistDTO, String programId) throws SQLException, ClassNotFoundException;
-    boolean deleteTherapist(String id) throws SQLException, ClassNotFoundException;
-    boolean updateTherapist(TherapistDTO therapistDTO, String programId) throws SQLException, ClassNotFoundException;
-    List<String> getAvailableTherapistIds();
+    boolean registerUser(UserDto userdto);
 
-    UserDTO getData(String username);
+    UserDto loginUser(String username);
 
-    boolean updateUser(UserDTO userDTO);
+    List<UserDto> getAllUsers() throws SQLException, ClassNotFoundException;
 
-    UserDTO loginUser(String username);
+    boolean updateUser(UserDto userDto) throws SQLException, ClassNotFoundException;
+
+    boolean addUser(UserDto userDto) throws SQLException, ClassNotFoundException;
+
+    boolean deleteUser(String id) throws SQLException, ClassNotFoundException;
+
+    UserDto searchUser(String id);
+
+    UserDto getData(String username);
 }

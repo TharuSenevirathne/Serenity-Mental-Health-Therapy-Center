@@ -1,35 +1,32 @@
 package org.example.orm_courseworks.bo;
 
+
 import org.example.orm_courseworks.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
-    private BOFactory() {
+    private BOFactory() {}
+    public static BOFactory getInstance() {
+        return boFactory==null?boFactory=new BOFactory():boFactory;
+    }
+    public enum BOType {
+        PATIENT, PROGRAM, USER , THERAPIST, PAYMENT, SESSION
 
     }
-
-    public static BOFactory getBoFactory(){
-        return (boFactory == null) ? boFactory = new BOFactory() : boFactory;
-    }
-
-    public enum BOTypes{
-        PATIENT,PAYMENT,THERAPIST,THERAPIPROGRAM,THERAPYSESSION, QUERY, USER
-    }
-
-    public SuperBO getBO(BOTypes boTypes){
-        switch (boTypes){
-            case PATIENT:
-                return new PatientBOImpl();
-            case PAYMENT:
-                return new PaymentBOImpl();
-            case THERAPIST:
-                return new TherapistBOImpl();
-            case THERAPIPROGRAM:
-                return new TherapyProgramBOImpl();
-            case THERAPYSESSION:
-                return new TherapySessionBOImpl();
+    public SuperBO getBO(BOType type) {
+        switch (type) {
             case USER:
                 return new UserBOImpl();
+            case PATIENT:
+                return new PatientBOImpl();
+            case PROGRAM:
+                return new ProgramBOImpl();
+            case THERAPIST:
+                return new TherapistBOImpl();
+            case SESSION:
+                return new SessionBOImpl();
+            case PAYMENT:
+                return new PaymentBOImpl();
             default:
                 return null;
         }
