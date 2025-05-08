@@ -16,12 +16,12 @@
 <AnchorPane prefHeight="648.0" prefWidth="874.0" styleClass="dark-mode-pane" stylesheets="@css/user_management.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_courseworks.controllers.TherapyProgramController">
     <children>
         <!-- Title and Back Button -->
-        <Text fill="WHITE" layoutX="213.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapy Program Management" textAlignment="CENTER" wrappingWidth="475.1999267578125">
+        <Text layoutX="105.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapy Program Management" textAlignment="CENTER" wrappingWidth="556.79990234375">
             <font>
-                <Font name="System Bold Italic" size="37.0" />
+                <Font name="Bell MT Bold" size="37.0" />
             </font>
         </Text>
-        <Button fx:id="backBtn" layoutX="715.0" layoutY="82.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="19.0" prefWidth="111.0" styleClass="back-button" text="Back" />
+        <Button fx:id="backBtn" layoutX="713.0" layoutY="69.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="19.0" prefWidth="111.0" styleClass="back-button" text="Back" />
 
         <!-- Therapy Program Form -->
         <GridPane alignment="TOP_LEFT" hgap="15" layoutX="65.0" layoutY="176.0" vgap="10">
@@ -54,19 +54,19 @@
         </GridPane>
 
         <!-- Buttons for Program Management -->
-        <HBox alignment="CENTER" layoutX="65.0" layoutY="367.0" spacing="20">
+        <HBox alignment="CENTER" layoutX="65.0" layoutY="367.0" prefHeight="41.0" prefWidth="748.0" spacing="20">
             <Button fx:id="btnAddProgram" onAction="#addProgram" styleClass="dashboard-button" text="Add Program" />
             <Button fx:id="btnUpdateProgram" onAction="#updateProgram" styleClass="dashboard-button" text="Edit Program" />
             <Button fx:id="btnDeleteProgram" onAction="#deleteProgram" styleClass="dashboard-button" text="Delete Program" />
         </HBox>
 
         <!-- Table for Therapy Programs -->
-        <TableView fx:id="tblPrograms" layoutX="64.0" layoutY="437.0" onMouseClicked="#tableOnClick" prefHeight="150.0" prefWidth="530.0" styleClass="table-view">
+        <TableView fx:id="tblPrograms" layoutX="64.0" layoutY="437.0" onMouseClicked="#tableOnClick" prefHeight="150.0" prefWidth="734.0" styleClass="table-view">
             <columns>
-                <TableColumn fx:id="colProgramID" prefWidth="80.0" text="ID" />
-                <TableColumn fx:id="colProgramName" prefWidth="200.0" text="Program Name" />
-                <TableColumn fx:id="colDuration" prefWidth="144.79998779296875" text="Duration" />
-                <TableColumn fx:id="colFee" prefWidth="152.00006103515625" text="Fee" />
+                <TableColumn fx:id="colProgramID" prefWidth="101.60000610351562" text="ID" />
+                <TableColumn fx:id="colProgramName" prefWidth="210.3999786376953" text="Program Name" />
+                <TableColumn fx:id="colDuration" prefWidth="208.0" text="Duration" />
+                <TableColumn fx:id="colFee" prefWidth="214.4000244140625" text="Fee" />
             </columns>
         </TableView>
     </children>

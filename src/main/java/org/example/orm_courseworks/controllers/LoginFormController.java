@@ -76,7 +76,7 @@ public class LoginFormController {
         if (userDAO.ifHaveAdmin()) {
             new Alert(Alert.AlertType.ERROR, "Already have an admin.").show();
         }else {
-                AnchorPane rootNode = FXMLLoader.load(getClass().getResource("/view/RegistrationPage.fxml"));
+                AnchorPane rootNode = FXMLLoader.load(getClass().getResource("/view/SignUp.fxml"));
 
                 Scene scene = new Scene(rootNode);
 

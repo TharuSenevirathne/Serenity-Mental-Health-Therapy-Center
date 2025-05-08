@@ -69,9 +69,9 @@
             <TableColumn fx:id="colDate" prefWidth="160.0" text="Registration Date" />
             </columns>
         </TableView>
-        <Text fill="WHITE" layoutX="252.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Management" wrappingWidth="395.1999267578125">
+        <Text layoutX="252.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Patient Management" wrappingWidth="395.1999267578125">
             <font>
-                <Font name="System Bold Italic" size="37.0" />
+                <Font name="Bell MT Bold" size="37.0" />
             </font>
         </Text>
         <Button fx:id="backbit" layoutX="706.0" layoutY="30.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="19.0" prefWidth="111.0" styleClass="back-button" text="Back" />

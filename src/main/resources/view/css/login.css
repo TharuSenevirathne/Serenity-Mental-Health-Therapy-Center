@@ -1,9 +1,8 @@
-/* Dark mode styling */
 .dark-mode-pane {
     -fx-background-color: white;
 }
 
-/* Split panel styling */
+
 .image-container {
     -fx-background-color: #121212;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 0);
@@ -21,7 +20,6 @@
     -fx-padding: 30px;
 }
 
-/* Login title styling */
 .login-title {
     -fx-font-weight: bold;
     -fx-font-size: 40px;
@@ -29,10 +27,9 @@
     -fx-font-family: "Monotype Corsiva";
 }
 
-/* Input fields styling */
 .login-field {
     -fx-background-color: #ebe5e5;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #090909;
     -fx-border-color: #5c5c5c;
     -fx-border-radius: 5px;
     -fx-padding: 7px;
@@ -51,7 +48,6 @@
     -fx-translate-x: 3px ease;
 }
 
-/* Logo styling */
 .logo {
     -fx-font-weight: bold;
     -fx-font-size: 30px;
@@ -70,9 +66,8 @@
     -fx-background-color: rgba(255, 255, 255, 0.3);
 }
 
-/* Login button styling */
 .login-button {
-    -fx-background-color: #5c5f5b;
+    -fx-background-color: #19bf0d;
     -fx-text-fill: #ffffff;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
@@ -83,17 +78,16 @@
 }
 
 .login-button:hover {
-    -fx-background-color: #005f8f;
+    -fx-background-color: #338d0f;
     -fx-cursor: hand;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 15, 0, 0, 5);
 }
 
 .login-button:pressed {
-    -fx-background-color: #004b73;
+    -fx-background-color: #2b6215;
     -fx-translate-y: 1px;
 }
 
-/* Register link styling */
 .register-link {
     -fx-text-fill: #00aaff;
     -fx-font-size: 14px;
@@ -101,25 +95,17 @@
     -fx-transition: -fx-text-fill 0.2s ease;
 }
 
-.register-link:hover {
-    -fx-underline: true;
-    -fx-cursor: hand;
-    -fx-text-fill: #ffffff;
-}
 
-/* Footer text styling */
 .footer-text {
     -fx-font-size: 14px;
     -fx-fill: #888888;
     -fx-font-family: "Arial";
 }
 
-/* Animation for the login form */
 .login-field, .login-button {
     -fx-transition: -fx-translate-y 0.3s ease, -fx-opacity 0.3s ease;
 }
 
-/* Responsiveness adjustments */
 @media (max-width: 800px) {
     .login-title {
         -fx-font-size: 60px;

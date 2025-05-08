@@ -1,0 +1,55 @@
+.dark-mode-pane {
+    -fx-background-color: #ffffff;
+}
+
+.registration-title {
+    -fx-font-weight: bold;
+    -fx-font-family: "Bell MT";
+    -fx-font-size: 50px;
+    -fx-text-fill: #090909;
+    -fx-padding: 20px;
+}
+
+.registration-field {
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-border-color: #2ec404;
+    -fx-border-radius: 5px;
+}
+
+.registration-field:hover {
+    -fx-translate-x: 3px ease;
+    -fx-border-color: #24670d;
+    -fx-cursor: hand;
+}
+
+.register-button {
+    -fx-background-color: #0ccd2c;
+    -fx-text-fill: #090909;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0.0, 0, 1);
+}
+
+.register-button:hover {
+    -fx-background-color: #24600c;
+}
+
+.back-button {
+    -fx-background-color: #ff0000;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-padding: 10px;
+    -fx-effect: dropshadow(gaussian, #000000, 5, 0.0, 0, 1);
+}
+
+.footer-text {
+    -fx-font-size: 14px;
+    -fx-text-fill: #090909;
+    -fx-padding: 10px;
+    -fx-text-alignment: center;
+}

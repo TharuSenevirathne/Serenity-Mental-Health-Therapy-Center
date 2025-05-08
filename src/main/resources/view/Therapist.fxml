@@ -17,9 +17,9 @@
 <AnchorPane prefHeight="648.0" prefWidth="872.0" styleClass="dark-mode-pane" stylesheets="@css/user_management.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_courseworks.controllers.TherapistManagementController">
     <children>
         <!-- Title and Back Button -->
-        <Text fill="WHITE" layoutX="212.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapist Management" textAlignment="CENTER" wrappingWidth="422.3999389648437">
+        <Text layoutX="212.0" layoutY="71.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Therapist Management" textAlignment="CENTER" wrappingWidth="422.3999389648437">
             <font>
-                <Font name="System Bold Italic" size="37.0" />
+                <Font name="Bell MT Bold" size="37.0" />
             </font>
         </Text>
         <Button fx:id="backBtn" layoutX="700.0" layoutY="42.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="19.0" prefWidth="111.0" styleClass="back-button" text="Back" />

@@ -70,9 +70,9 @@
                 <TableColumn fx:id="colRole" prefWidth="139.199951171875" text="Role" />
             </columns>
         </TableView>
-        <Text fill="WHITE" layoutX="291.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Management" wrappingWidth="395.1999267578125">
+        <Text layoutX="291.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Management" wrappingWidth="395.1999267578125">
             <font>
-                <Font name="System Bold Italic" size="37.0" />
+                <Font name="Bell MT Bold" size="37.0" />
             </font>
         </Text>
       <Button fx:id="backbit" layoutX="705.0" layoutY="36.0" mnemonicParsing="false" onAction="#backOnAction" prefHeight="19.0" prefWidth="111.0" styleClass="back-button" text="Back" />
