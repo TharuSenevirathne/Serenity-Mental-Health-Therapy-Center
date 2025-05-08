@@ -1,6 +1,6 @@
 /* Dark mode styling */
 .dark-mode-pane {
-    -fx-background-color: #1e1e1e;
+    -fx-background-color: white;
 }
 
 /* Split panel styling */
@@ -10,29 +10,28 @@
 }
 
 .image-overlay-text {
-    -fx-font-family: "Arial";
+    -fx-font-family: "Monotype Corsiva";
     -fx-font-weight: bold;
-    -fx-font-size: 28px;
-    -fx-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 10, 0.5, 0, 0);
+    -fx-font-size: 40px;
+    -fx-fill: #090909;
 }
 
 .login-form-container {
-    -fx-background-color: #1e1e1e;
+    -fx-background-color: white;
     -fx-padding: 30px;
 }
 
 /* Login title styling */
 .login-title {
     -fx-font-weight: bold;
-    -fx-font-size: 80px;
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "HoloLens MDL2 Assets";
+    -fx-font-size: 40px;
+    -fx-text-fill: #090909;
+    -fx-font-family: "Monotype Corsiva";
 }
 
 /* Input fields styling */
 .login-field {
-    -fx-background-color: #333333;
+    -fx-background-color: #ebe5e5;
     -fx-text-fill: #ffffff;
     -fx-border-color: #5c5c5c;
     -fx-border-radius: 5px;
@@ -73,7 +72,7 @@
 
 /* Login button styling */
 .login-button {
-    -fx-background-color: #00aaff;
+    -fx-background-color: #5c5f5b;
     -fx-text-fill: #ffffff;
     -fx-font-size: 20px;
     -fx-font-weight: bold;

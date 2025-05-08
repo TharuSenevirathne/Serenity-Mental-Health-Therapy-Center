@@ -18,21 +18,16 @@
 
 <AnchorPane prefHeight="648.0" prefWidth="872.0" styleClass="dark-mode-pane" stylesheets="@css/login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.orm_courseworks.controllers.LoginFormController">
     <children>
-        <ImageView fitHeight="649.0" fitWidth="459.0" layoutX="-21.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                <Image url="@images/serenity-therapy-image.png" />
-            </image>
-        </ImageView>
 
         <!-- Right side with login form -->
         <VBox alignment="CENTER" layoutX="411.0" layoutY="1.0" prefHeight="648.0" prefWidth="461.0" spacing="20.0" styleClass="login-form-container">
             <children>
-                <ImageView fitHeight="127.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@images/serenity-therapy-logo.png" />
-                    </image>
-                </ImageView>
-                <Label prefHeight="60.0" prefWidth="210.0" styleClass="login-title" text="Login">
+              <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="image-overlay-text" text="Welcome to Serenity" wrappingWidth="313.0062255859375">
+                  <font>
+                      <Font name="System Bold" size="36.0" />
+                  </font>
+              </Text>
+                <Label prefHeight="93.0" prefWidth="191.0" styleClass="login-title" text="--- Login ---">
                     <VBox.margin>
                         <Insets bottom="20.0" />
                     </VBox.margin>
@@ -73,10 +68,10 @@
                 <HBox alignment="CENTER" prefHeight="30.0" prefWidth="527.0">
                     <children>
                         <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Don't have an account? " />
-                        <Hyperlink fx:id="registerLink" onAction="#registrationOnAction" styleClass="register-link" text="Register" />
+                        <Hyperlink fx:id="registerLink" onAction="#registrationOnAction" styleClass="register-link" text="SignUp" />
                     </children>
                 </HBox>
-                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="footer-text" text="Serenity Mental Health Therapy Center">
+                <Text fill="WHITE" opacity="0.57" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="footer-text">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
@@ -89,10 +84,10 @@
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
         </VBox>
-        <Text fill="WHITE" layoutX="65.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="image-overlay-text" text="Welcome to Serenity" wrappingWidth="313.0062255859375">
-            <font>
-                <Font name="System Bold" size="36.0" />
-            </font>
-        </Text>
+      <ImageView fitHeight="649.0" fitWidth="413.0" layoutX="-1.0">
+         <image>
+            <Image url="@images/Screenshot%202025-04-22%20112012.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

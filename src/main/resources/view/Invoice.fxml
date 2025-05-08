@@ -18,22 +18,17 @@
                     <children>
                         <Label prefHeight="35.0" prefWidth="278.0" text="Serenity Therapy Center" textAlignment="CENTER">
                             <font>
-                                <Font name="System Bold" size="24.0" />
-                            </font>
-                        </Label>
-                        <Label text="OFFICIAL INVOICE" textAlignment="CENTER">
-                            <font>
-                                <Font size="16.0" />
+                                <Font name="Monotype Corsiva" size="33.0" />
                             </font>
                         </Label>
                         <Label fx:id="lblInvoiceNumber" text="Invoice #: INV-12345" textAlignment="CENTER">
                             <font>
-                                <Font size="14.0" />
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lblInvoiceDate" text="Date: 2025-04-20" textAlignment="CENTER">
+                        <Label fx:id="lblInvoiceDate" text="Date: 2025-04-14" textAlignment="CENTER">
                             <font>
-                                <Font size="14.0" />
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
                     </children>
@@ -48,9 +43,9 @@
                 <!-- Patient Information Section -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="PATIENT INFORMATION" textFill="#0d47a1">
+                        <Label text="PATIENT INFORMATION" textFill="#29bf07">
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="Bell MT Bold" size="14.0" />
                             </font>
                         </Label>
                         <HBox spacing="10.0">
@@ -70,7 +65,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblPatientName" text="John Doe" />
+                                <Label fx:id="lblPatientName" text="Tharu Senevirathne" />
                             </children>
                         </HBox>
                         <HBox spacing="10.0">
@@ -80,7 +75,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblPatientContact" text="+94 771234567" />
+                                <Label fx:id="lblPatientContact" text="0758163987" />
                             </children>
                         </HBox>
                     </children>
@@ -92,9 +87,9 @@
                 <!-- Session Information Section -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="SESSION INFORMATION" textFill="#0d47a1">
+                        <Label text="SESSION INFORMATION" textFill="#29bf07">
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="Bell MT" size="14.0" />
                             </font>
                         </Label>
                         <HBox spacing="10.0">
@@ -104,7 +99,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblProgramId" text="PRG001" />
+                                <Label fx:id="lblProgramId" text="P001" />
                             </children>
                         </HBox>
                         <HBox spacing="10.0">
@@ -134,7 +129,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblSessionDate" text="2025-04-20" />
+                                <Label fx:id="lblSessionDate" text="2025-04-14" />
                             </children>
                         </HBox>
                     </children>
@@ -149,9 +144,9 @@
                 <!-- Payment Details Section -->
                 <VBox spacing="5.0">
                     <children>
-                        <Label text="PAYMENT DETAILS" textFill="#0d47a1">
+                        <Label text="PAYMENT DETAILS" textFill="#29bf07">
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="Bell MT" size="14.0" />
                             </font>
                         </Label>
                         <HBox spacing="10.0">
@@ -171,7 +166,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblProgramFee" text="Rs. 5000.00" />
+                                <Label fx:id="lblProgramFee" text="Rs. 3000.00" />
                             </children>
                             <VBox.margin>
                                 <Insets top="10.0" />
@@ -184,7 +179,7 @@
                                         <Font name="System Bold" size="12.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblAmountPaid" text="Rs. 3000.00" />
+                                <Label fx:id="lblAmountPaid" text="Rs. 2000.00" />
                             </children>
                         </HBox>
                         <Separator prefWidth="200.0">
@@ -199,7 +194,7 @@
                                         <Font name="System Bold" size="14.0" />
                                     </font>
                                 </Label>
-                                <Label fx:id="lblBalanceDue" text="Rs. 2000.00" textFill="#d32f2f">
+                                <Label fx:id="lblBalanceDue" text="Rs. 1000.00" textFill="#d32f2f">
                                     <font>
                                         <Font name="System Bold" size="14.0" />
                                     </font>
@@ -215,14 +210,9 @@
                 <!-- Footer Section -->
                 <VBox alignment="CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label text="Thank you for choosing our Therapy Center!" textAlignment="CENTER">
+                        <Label text="THANK YOU !" textAlignment="CENTER">
                             <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <Label text="For any inquiries, please contact us at: +94 112345678" textAlignment="CENTER">
-                            <font>
-                                <Font size="12.0" />
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
                     </children>
@@ -234,7 +224,7 @@
                 <!-- Print Button -->
                 <HBox alignment="CENTER">
                     <children>
-                        <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#printInvoice" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: #2196f3;" text="Print Invoice" textFill="WHITE">
+                        <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#printInvoice" prefHeight="30.0" prefWidth="120.0" style="-fx-background-color: green;" text="Print Invoice" textFill="WHITE">
                             <font>
                                 <Font name="System Bold" size="12.0" />
                             </font>

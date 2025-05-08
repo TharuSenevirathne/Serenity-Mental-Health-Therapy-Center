@@ -13,7 +13,7 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         Parent load = FXMLLoader.load(getClass().getResource("/view/LoginForm.fxml"));
         Scene scene = new Scene(load);
-        stage.setTitle("Seranity");
+        stage.setTitle("Seranity Mental Health Therapy Center");
         stage.setScene(scene);
         stage.centerOnScreen();
         stage.show();
